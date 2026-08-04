@@ -1,21 +1,22 @@
-package database 
+package database
 
-func Connect() {
+import (
+	"database/sql"
+	"fmt"
+	"os"
+
+	_ "github.com/sijms/go-ora/v2"
+)
+
+func Connect() (*sql.DB, error) {
 	dbHost := os.Getenv("DB_HOST")
 	dbPort := os.Getenv("DB_PORT")
 	dbUser := os.Getenv("DB_USER")
 	dbPassword := os.Getenv("DB_PASSWORD")
 
-	cnnStr := fmt.Sprintf("host=%s port=%s user=%s password=%s sslmode=disable", dbHost, dbPort, dbUser, dbPassword)
+	cnnStr := fmt.Sprintf("oracle://%s:%s@%s:%s/XE", dbUser, dbPassword, dbHost, dbPort)
 
-
-	db, err := sql.Open("godror", cnnStr)
-
-	if err != nil {
-		return nil, NewDatabaseError("DB_CONNECTION", "Erro ao conectar no banco", err)
-	}
-
-	err = db.Ping()
+	db, err := sql.Open("oracle", cnnStr)
 
 	if err != nil {
 		return nil, NewDatabaseError("DB_CONNECTION", "Erro ao conectar no banco", err)

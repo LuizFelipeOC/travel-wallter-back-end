@@ -1,4 +1,4 @@
-package databasepackage database
+package database
 
 import "fmt"
 
@@ -16,6 +16,11 @@ var (
 	ErrDatabaseConnection = &DatabaseError{
 		Code:    "DB_CONNECTION",
 		Message: "Erro ao conectar no banco",
+		Err:     nil,
+	}
+	ErrDatabaseQuery = &DatabaseError{
+		Code:    "DB_QUERY",
+		Message: "Erro ao executar a query no banco",
 		Err:     nil,
 	}
 )

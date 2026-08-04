@@ -10,7 +10,7 @@ RUN go mod download 2>/dev/null || true
 
 COPY . .
 
-RUN CGO_ENABLED=1 GOOS=linux go build -o app .
+RUN CGO_ENABLED=1 GOOS=linux go build -o app ./cmd/api
 
 EXPOSE 8080
 

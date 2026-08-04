@@ -6,6 +6,16 @@ import (
 )
 
 func main() {
+	db, err := database.Connect()
+
+	if err != nil {
+		fmt.Println("Erro ao conectar no banco:", err)
+		return
+	}
+
+	defer db.Close()
+
+
 	repo := auth.NewAuthRepository()
 	handler := auth.NewAuthHandler(repo)
 

@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   app:
     build: .
@@ -18,9 +16,9 @@ services:
     restart: on-failure
 
   oracle:
-    image: container-registry.oracle.com/database/express:21.3.0
+    image: gvenzl/oracle-xe:latest
     environment:
-      - ORACLE_PWD=oracle123
+      - ORACLE_PASSWORD=oracle123
     ports:
       - "1521:1521"
     volumes:

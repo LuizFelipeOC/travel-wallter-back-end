@@ -6,10 +6,13 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/luizfelipeeoliveiraac/travel-wallter-back-end/internal/auth"
 	"github.com/luizfelipeeoliveiraac/travel-wallter-back-end/internal/expense"
 	"github.com/luizfelipeeoliveiraac/travel-wallter-back-end/internal/infrastrucuture/database"
 	"github.com/luizfelipeeoliveiraac/travel-wallter-back-end/internal/travel"
+	_ "github.com/luizfelipeeoliveiraac/travel-wallter-back-end/docs"
 )
 
 func main() {
@@ -34,6 +37,8 @@ func main() {
 	router.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"status": "ok"})
 	})
+
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	authGroup := router.Group("/auth")
 	{

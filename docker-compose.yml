@@ -8,12 +8,9 @@ services:
       - DB_PORT=1521
       - DB_USER=admin
       - DB_PASSWORD=oracle123
-    depends_on:
-      oracle:
-        condition: service_healthy
     networks:
       - app-network
-    restart: on-failure
+    restart: unless-stopped
 
   oracle:
     image: gvenzl/oracle-xe:latest
@@ -29,8 +26,8 @@ services:
       test: ["CMD", "sqlplus", "-h"]
       interval: 30s
       timeout: 10s
-      retries: 5
-      start_period: 60s
+      retries: 10
+      start_period: 180s
     restart: on-failure
 
 networks:

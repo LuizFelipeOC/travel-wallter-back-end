@@ -2,7 +2,7 @@ FROM golang:1.22-alpine
 
 WORKDIR /app
 
-RUN apk add --no-cache git gcc musl-dev ca-certificates
+RUN apk add --no-cache git ca-certificates
 
 COPY go.mod go.sum* ./
 
@@ -12,7 +12,7 @@ COPY . .
 
 RUN go mod tidy
 
-RUN CGO_ENABLED=1 GOOS=linux go build -o app ./cmd/api
+RUN CGO_ENABLED=0 GOOS=linux go build -o app ./cmd/api
 
 EXPOSE 8080
 
